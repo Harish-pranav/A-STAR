@@ -1,6 +1,6 @@
 <h1>ExpNo 4 : Implement A* search algorithm for a Graph</h1> 
-<h3>Name:       </h3>
-<h3>Register Number:           </h3>
+<h3>Name:  HARISH PRANAV     </h3>
+<h3>Register Number:  212225040117      </h3>
 <H3>Aim:</H3>
 <p>To ImplementA * Search algorithm for a Graph using Python 3.</p>
 <H3>Algorithm:</H3>
@@ -49,6 +49,66 @@
     end (while loop)
 
 ``````
+## Program
+```python
+
+import heapq
+
+def astar(graph, h, start, goal):
+    open_list = [(h[start], 0, start, [start])]
+    closed = set()
+
+    while open_list:
+        f, g, node, path = heapq.heappop(open_list)
+
+        if node == goal:
+            return path
+
+        if node in closed:
+            continue
+
+        closed.add(node)
+
+        for neighbour, cost in graph[node]:
+            if neighbour not in closed:
+                new_g = g + cost
+                new_f = new_g + h[neighbour]
+
+                heapq.heappush(open_list,
+                               (new_f, new_g, neighbour,
+                                path + [neighbour]))
+
+    return None
+
+
+n, e = map(int, input().split())
+
+graph = {}
+
+for _ in range(e):
+    u, v, w = input().split()
+    w = int(w)
+
+    graph.setdefault(u, []).append((v, w))
+    graph.setdefault(v, []).append((u, w))
+
+h = {}
+
+for _ in range(n):
+    node, value = input().split()
+    h[node] = int(value)
+
+start = list(h.keys())[0]
+goal = list(h.keys())[-1]
+
+path = astar(graph, h, start, goal)
+
+if path:
+    print("Path found:", path)
+else:
+    print("Path not found")
+
+```
 
 <hr>
 <h2>Sample Graph I</h2>
@@ -117,3 +177,9 @@ G 0 <br>
 <h2>Sample Output</h2>
 <hr>
 Path found: ['A', 'E', 'D', 'G']
+<img width="990" height="805" alt="image" src="https://github.com/user-attachments/assets/bd7a1a94-d8fc-433e-a61a-b932fc38b84f" />
+<img width="767" height="698" alt="image" src="https://github.com/user-attachments/assets/ae5a5488-ce65-46a7-bf65-e543cdcd6288" />
+
+# Result:
+Thus  Implemented  Search algorithm for a Graph using Python 3
+
